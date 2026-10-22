@@ -1,0 +1,9 @@
+{
+  "name": "kanso",
+  "description": "Explanations in simplified technical English, delivered as HTML pages with diagrams.",
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou"
+}

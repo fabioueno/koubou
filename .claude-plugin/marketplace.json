@@ -10,6 +10,11 @@
       "name": "git",
       "source": "./plugins/git",
       "description": "Git housekeeping, starting with .gitignore files built from the official templates."
+    },
+    {
+      "name": "kanso",
+      "source": "./plugins/kanso",
+      "description": "Explanations in simplified technical English, delivered as HTML pages with diagrams."
     }
   ]
 }
