@@ -23,3 +23,7 @@ __MACOSX/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+### App Specific
+plugins/*/evals/results/

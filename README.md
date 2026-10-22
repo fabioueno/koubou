@@ -3,14 +3,43 @@
 
   <p>
     A Claude Code plugin marketplace. Each plugin does one job, turns on or off
-    on its own, and ships with evals that run in CI.
+    on its own, and ships with its own evals.
   </p>
 </div>
 
 ---
 
+## Plugins
+
+| Plugin  | Skill            | What it does                                                                          |
+| ------- | ---------------- | ------------------------------------------------------------------------------------- |
+| `git`   | `git:gitignore`  | Builds and updates `.gitignore` files from the official github/gitignore templates.   |
+| `kanso` | `kanso:explain`  | Writes explanations in simplified technical English, as HTML pages with diagrams.     |
+
+## Installation
+
+Add the marketplace, then install the plugins you want:
+
+```text
+/plugin marketplace add fabioueno/koubou
+/plugin install git@koubou
+/plugin install kanso@koubou
+```
+
+Turn a plugin off or on again without uninstalling it:
+
+```text
+/plugin disable kanso@koubou
+/plugin enable kanso@koubou
+```
+
+Plugins carry no version, so each one updates when a commit changes its folder.
+Run `/plugin marketplace update koubou` to fetch new commits.
+
 ## Documentation
 
-| Document                           | Description                               |
-| ---------------------------------- | ----------------------------------------- |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Development setup and contribution guide. |
+| Document                        | Description                                      |
+| ------------------------------- | ------------------------------------------------ |
+| [CONTRIBUTING.md][contributing] | Conventions, adding a plugin, and running evals. |
+
+[contributing]: CONTRIBUTING.md
