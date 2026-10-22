@@ -1,0 +1,15 @@
+{
+  "name": "koubou",
+  "description": "Fabio Ueno's Claude Code plugins, one job each.",
+  "owner": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "plugins": [
+    {
+      "name": "git",
+      "source": "./plugins/git",
+      "description": "Git housekeeping, starting with .gitignore files built from the official templates."
+    }
+  ]
+}

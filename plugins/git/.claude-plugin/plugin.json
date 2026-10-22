@@ -1,0 +1,9 @@
+{
+  "name": "git",
+  "description": "Git housekeeping, starting with .gitignore files built from the official templates.",
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou"
+}
