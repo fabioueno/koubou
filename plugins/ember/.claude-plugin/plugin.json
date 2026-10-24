@@ -1,0 +1,10 @@
+{
+  "name": "ember",
+  "description": "Keeps the prompt cache warm while you are away, with a short ping before it would expire, and warns when a resumed session's cache has gone cold.",
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou",
+  "types": "./types/index.d.ts"
+}
