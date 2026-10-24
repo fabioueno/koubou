@@ -21,6 +21,7 @@ describe("onAbovePrompt", () => {
     { options: { showRateLimits: false } },
     async ($, on) => {
       mock.clock(on, { now: 60 * 60_000 });
+
       on("session.start", () => ({ cwd: "/Users/robin/Projects/atlas", startedAt: 0 }) as never);
       on("session.usage", () => ({ value: { startedAt: 0, context: {}, rateLimits: [] } as never }));
       on("session.cwd", () => ({ value: "/Users/robin/Projects/atlas" }));
@@ -32,6 +33,7 @@ describe("onAbovePrompt", () => {
         if (e.surface !== "terminal") {
           return next(e);
         }
+
         const { Text } = $.ui.resolve(e);
 
         return <Text>a line of another plugin</Text>;
