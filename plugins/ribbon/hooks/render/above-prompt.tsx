@@ -7,6 +7,10 @@ import { band } from "../status/band";
 // within its own file.
 const status = atom({ plugin: "ribbon", key: "status" } as const, null);
 
+/**
+ * The band, kept next to the prompt, under whatever the other plugins draw
+ * above the prompt, so each one's part shows whatever order the plugins run in.
+ */
 export function onAbovePrompt(on: On, options: PluginOptions): void {
   on("ui.render", { component: "AbovePrompt" }, async ($, e, next) => {
     const current = await read($, status);
@@ -14,11 +18,19 @@ export function onAbovePrompt(on: On, options: PluginOptions): void {
       return next(e);
     }
 
-    return band($.ui.resolve(e), {
-      status: current,
-      width: e.props.bodyColumns,
-      showCost: options.showCost !== false,
-      showRateLimits: options.showRateLimits !== false,
-    });
+    const E = $.ui.resolve(e);
+    const above = await next(e);
+
+    return (
+      <E.Box flexDirection="column">
+        {above}
+        {band(E, {
+          status: current,
+          width: e.props.bodyColumns,
+          showCost: options.showCost !== false,
+          showRateLimits: options.showRateLimits !== false,
+        })}
+      </E.Box>
+    );
   });
 }
