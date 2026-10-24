@@ -7,14 +7,13 @@ settings:
 importers:
 
   .:
-    dependencies:
-      claude-code:
-        specifier: '*'
-        version: 1.0.0
     devDependencies:
       '@biomejs/biome':
         specifier: 2.5.13
         version: 2.5.13
+      claude-code:
+        specifier: 1.0.0
+        version: 1.0.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3

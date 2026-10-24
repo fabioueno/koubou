@@ -9,16 +9,9 @@
     "type-check": "tsc -p .",
     "test": "claude plugin test ."
   },
-  "peerDependencies": {
-    "claude-code": "*"
-  },
-  "peerDependenciesMeta": {
-    "claude-code": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@biomejs/biome": "2.5.13",
+    "claude-code": "1.0.0",
     "typescript": "5.9.3"
   },
   "engines": {
