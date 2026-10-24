@@ -42,4 +42,9 @@ Run `/plugin marketplace update koubou` to fetch new commits.
 | ------------------------------- | ------------------------------------------------ |
 | [CONTRIBUTING.md][contributing] | Conventions, adding a plugin, and running evals. |
 
+## License
+
+[MIT][license]
+
 [contributing]: CONTRIBUTING.md
+[license]: LICENSE
