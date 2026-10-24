@@ -11,10 +11,11 @@
 
 ## Plugins
 
-| Plugin  | Skill            | What it does                                                                          |
-| ------- | ---------------- | ------------------------------------------------------------------------------------- |
-| `git`   | `git:gitignore`  | Builds and updates `.gitignore` files from the official github/gitignore templates.   |
-| `kanso` | `kanso:explain`  | Writes explanations in simplified technical English, as HTML pages with diagrams.     |
+| Plugin  | Provides        | What it does                                                                        |
+| ------- | --------------- | ----------------------------------------------------------------------------------- |
+| `crew`  | Sidebar mod     | Shows a side panel with a card for each agent at work.                              |
+| `git`   | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates. |
+| `kanso` | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.   |
 
 ## Installation
 
@@ -22,6 +23,7 @@ Add the marketplace, then install the plugins you want:
 
 ```text
 /plugin marketplace add fabioueno/koubou
+/plugin install crew@koubou
 /plugin install git@koubou
 /plugin install kanso@koubou
 ```

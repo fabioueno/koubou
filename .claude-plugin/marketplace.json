@@ -7,6 +7,11 @@
   },
   "plugins": [
     {
+      "name": "crew",
+      "source": "./plugins/crew",
+      "description": "A side panel with a card for each agent at work: the main loop and every subagent, with its model, task, current tool and context use."
+    },
+    {
       "name": "git",
       "source": "./plugins/git",
       "description": "Git housekeeping, starting with .gitignore files built from the official templates."

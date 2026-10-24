@@ -1,0 +1,18 @@
+{
+  "name": "crew",
+  "description": "A side panel with a card for each agent at work: the main loop and every subagent, with its model, task, current tool and context use.",
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "showMoods": {
+      "type": "boolean",
+      "title": "Show moods",
+      "description": "Let Haiku read the mood of each prompt you type, and have the main agent react to it. Each prompt costs one small Haiku call.",
+      "default": true
+    }
+  }
+}

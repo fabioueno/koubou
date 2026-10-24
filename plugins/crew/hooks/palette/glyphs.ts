@@ -1,0 +1,15 @@
+export const GLYPHS = {
+  agent: "\u{f007}",
+  agentsTitle: "\u{f0c0}",
+  context: "\u{f1c0}",
+  fail: "\u{f00d}",
+  model: "\u{f2db}",
+  ok: "\u{f00c}",
+  output: "\u{f093}",
+  question: "\u{f128}",
+  steps: "\u{f0cb}",
+  task: "\u{f0ae}",
+  thinking: "\u{f0eb}",
+  tool: "\u{f0ad}",
+  waiting: "\u{f254}",
+} as const;

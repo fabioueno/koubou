@@ -6,8 +6,9 @@ writing any of them.
 
 ## Plugins
 
-Plugins live under `plugins/`, one folder each, and each plugin's evals live
-in its `evals/` folder. CONTRIBUTING describes the layout, how to add a
-plugin, and the command that runs a plugin's evals.
+Plugins live under `plugins/`, one folder each. A plugin's evals live in its
+`evals/` folder, and a mod has tests and its own toolchain instead. CONTRIBUTING
+describes the layout, how to add a plugin, and the commands that run evals and
+a mod's checks.
 
 [contributing]: CONTRIBUTING.md
