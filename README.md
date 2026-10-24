@@ -11,11 +11,12 @@
 
 ## Plugins
 
-| Plugin  | Provides        | What it does                                                                        |
-| ------- | --------------- | ----------------------------------------------------------------------------------- |
-| `crew`  | Sidebar mod     | Shows a side panel with a card for each agent at work.                              |
-| `git`   | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates. |
-| `kanso` | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.   |
+| Plugin   | Provides        | What it does                                                                             |
+| -------- | --------------- | ---------------------------------------------------------------------------------------- |
+| `crew`   | Sidebar mod     | Shows a side panel with a card for each agent at work.                                   |
+| `git`    | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates.      |
+| `kanso`  | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.        |
+| `ribbon` | Prompt band mod | Shows a band above the prompt with the session's time, cost, project, branch and limits. |
 
 ## Installation
 
@@ -26,6 +27,7 @@ Add the marketplace, then install the plugins you want:
 /plugin install crew@koubou
 /plugin install git@koubou
 /plugin install kanso@koubou
+/plugin install ribbon@koubou
 ```
 
 Turn a plugin off or on again without uninstalling it:
