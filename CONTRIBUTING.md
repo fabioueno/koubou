@@ -76,6 +76,18 @@ Plugins carry no `version`. Claude Code then versions each plugin by the
 commit of its folder, so a merge updates only the plugins it touched. Add a
 version only when another plugin needs a dependency range on it.
 
+## Mods
+
+A mod is a plugin whose `hooks/hooks.json` names TypeScript modules that change
+Claude Code's interface, as `crew` does. A mod has tests instead of evals, and
+keeps its own `mise.toml`, `package.json` and `Makefile` in its folder. From
+that folder, `make deps` installs its tools, `make check` runs Biome, the type
+check and `claude plugin validate`, and `make test` runs `claude plugin test`.
+
+The type check reads `.claude-plugin/types/`, which Claude Code writes each
+time it loads the mod and git ignores. Load the mod once, for example with
+`claude --plugin-dir plugins/<name>`, before the first `make check`.
+
 # Evals
 
 Evals run with [`claude plugin eval`][plugin-evals]. A case is a folder with a
