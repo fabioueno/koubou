@@ -12,6 +12,11 @@
       "description": "A side panel with a card for each agent at work: the main loop and every subagent, with its model, task, current tool and context use."
     },
     {
+      "name": "ember",
+      "source": "./plugins/ember",
+      "description": "Keeps the prompt cache warm while you are away, with a short ping before it would expire, and warns when a resumed session's cache has gone cold."
+    },
+    {
       "name": "git",
       "source": "./plugins/git",
       "description": "Git housekeeping, starting with .gitignore files built from the official templates."

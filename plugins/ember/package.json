@@ -1,0 +1,28 @@
+{
+  "name": "ember",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {
+    "biome": "biome ci .",
+    "biome:fix": "biome check --write .",
+    "type-check": "tsc -p .",
+    "test": "claude plugin test ."
+  },
+  "peerDependencies": {
+    "claude-code": "*"
+  },
+  "peerDependenciesMeta": {
+    "claude-code": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.13",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=11"
+  }
+}
