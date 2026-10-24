@@ -20,6 +20,11 @@
       "name": "kanso",
       "source": "./plugins/kanso",
       "description": "Explanations in simplified technical English, delivered as HTML pages with diagrams."
+    },
+    {
+      "name": "ribbon",
+      "source": "./plugins/ribbon",
+      "description": "A band above the prompt with the session's time, cost, project, branch and rate limits."
     }
   ]
 }

@@ -1,0 +1,24 @@
+{
+  "name": "ribbon",
+  "description": "A band above the prompt with the session's time, cost, project, branch and rate limits.",
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "showCost": {
+      "type": "boolean",
+      "title": "Show cost",
+      "description": "Show the session's cost in the band.",
+      "default": true
+    },
+    "showRateLimits": {
+      "type": "boolean",
+      "title": "Show rate limits",
+      "description": "Show the 5-hour and weekly limits, with the Fable figure, in the band.",
+      "default": true
+    }
+  }
+}
