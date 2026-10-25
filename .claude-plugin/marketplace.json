@@ -30,6 +30,11 @@
       "name": "ribbon",
       "source": "./plugins/ribbon",
       "description": "A band above the prompt with the session's time, cost, project, branch and rate limits."
+    },
+    {
+      "name": "workflow",
+      "source": "./plugins/workflow",
+      "description": "How work moves from an idea to a merged pull request: plan, coordinate, implement, review and open the pull request, each phase a skill of its own."
     }
   ]
 }
