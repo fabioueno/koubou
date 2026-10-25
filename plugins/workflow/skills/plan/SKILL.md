@@ -103,19 +103,20 @@ as a named default, or listed as out of scope.
 
 ## 3. Write the plan
 
-The plan is a durable page that the later phases read and update. Its value is
-that it is specific: each decision, scenario and slice names the real things in
-this project. Make the plan richer by adding concrete items, never by making
+The plan is a durable artifact that the later phases read and update. Its value
+is that it is specific: each decision, scenario and slice names the real things
+in this project. Make the plan richer by adding concrete items, never by making
 items longer. Each item stays one or two short sentences, written with the
 `kanso:explain` skill's writing rules.
 
-Build the page from this skill's template, `assets/plan.html`. Copy the file to
-where the project keeps plans with a shell copy, such as `cp`, rather than
+Build the artifact from this skill's template, `assets/plan.html`. Copy the file
+to where the project keeps plans with a shell copy, such as `cp`, rather than
 reading it and writing it out again, and then edit only its `PLAN` object.
 Without a shell, write it out unchanged apart from `PLAN`. Do not restyle or
-restructure the page: the template replaces the page design steps of
-`kanso:explain`, while its writing rules still apply to every word. Publish the
-filled file as `kanso:explain` publishes a page, and give its path. If the
+restructure it: the template replaces the page design steps of `kanso:explain`,
+while its writing rules still apply to every word. Publish the filled file with
+the `Artifact` tool, and give the artifact's link and the file's path. To update
+the plan, publish the same file again, so the link stays the same. If the
 project has no place for plans, add that to the first round of the interview as
 a question with options, such as a `docs/plans/` folder, and your suggestion
 first.
@@ -151,8 +152,8 @@ Fill in the `PLAN` object like this:
 - `risks.rows` are `[risk, the early signal]`, and `out.rows` are `[item, why it
   is out of scope]`.
 
-Leave a part empty when the work has nothing for it, and the page hides it. A
-small plan stays small.
+Leave a part empty when the work has nothing for it, and the template hides it.
+A small plan stays small.
 
 Cut the slices with these rules:
 

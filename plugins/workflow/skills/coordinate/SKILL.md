@@ -145,7 +145,7 @@ user's own server. Wait for it, and tell the user what holds it.
 The plan is the source of truth while the work runs. Update it when a slice
 starts, when a decision changes, when slices are folded together or deferred,
 and when a slice merges. Increase its revision, and publish the same file again
-with the Artifact tool, so the link stays the same.
+with the `Artifact` tool, so the link stays the same.
 
 ## 6. After a merge
 
