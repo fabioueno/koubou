@@ -118,6 +118,29 @@ prints the link. A copy goes to `plugins/<name>/evals/results/`, which git
 ignores, because each run writes a new timestamped report. Add
 `--runs 1 --ablation none` for a quick check without the baseline.
 
+## Running the evals of a plugin with dependencies
+
+An eval installs only the plugin under test, and a plugin whose dependency is
+missing stays disabled, so its skills never load. List the dependency in each
+case's `plugins` field, after the plugin itself:
+
+```yaml
+plugins: [../.., ../../../kanso]
+```
+
+Then run the evals against `plugins/` rather than the plugin's folder, so that
+both plugins sit inside the folder the eval may load from:
+
+```sh
+claude plugin eval plugins --eval-dir <name>/evals --ablation with-without \
+  --trust-plugin --scaffold --judge-model claude-sonnet-5-5 \
+  --allow-tools $(cat plugins/<name>/evals/allow-tools)
+```
+
+Keep `--ablation with-without`. With `plugins/` as the target, no single
+plugin is under test, so the eval skips the baseline unless the flag asks for
+it.
+
 Keep `--allow-tools`. A case's `allowed_tools` grants only read-only tools, so
 without the grants in `evals/allow-tools` a run can write no files and every
 case that writes or edits one fails. Keep the Sonnet judge too: the default
