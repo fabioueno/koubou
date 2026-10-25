@@ -102,6 +102,10 @@ names and data, never placeholders.
 Prefer graders that cost nothing (`regex`, `tool_used`, `file_exists`) and keep
 `llm` graders for short text with concrete PASS and FAIL conditions.
 
+A script that a skill bundles is code, not behavior, so a shell test checks it
+instead of an eval. The test lives in `plugins/<name>/tests/`, is named after
+the script, and runs directly, such as `plugins/workflow/tests/embed-diffs.sh`.
+
 ## Running a plugin's evals
 
 From the repository root, replacing `<name>` with the plugin:
