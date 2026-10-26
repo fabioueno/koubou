@@ -12,14 +12,14 @@
 
 ## Plugins
 
-| Plugin     | Provides        | What it does                                                                             |
-| ---------- | --------------- | ---------------------------------------------------------------------------------------- |
-| `crew`     | Sidebar mod     | Shows a side panel with a card for each agent at work.                                   |
-| `ember`    | Background mod  | Keeps the prompt cache warm while you are away, and warns when a resumed one went cold.  |
-| `git`      | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates.      |
-| `kanso`    | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.        |
-| `ribbon`   | Prompt band mod | Shows a band above the prompt with the session's time, cost, project, branch and limits. |
-| `workflow` | Five skills     | Plans, coordinates, builds test first, reviews and opens pull requests. Needs `kanso`.   |
+| Plugin     | Provides           | What it does                                                                             |
+| ---------- | ------------------ | ---------------------------------------------------------------------------------------- |
+| `crew`     | Sidebar mod        | Shows a side panel with a card for each agent at work.                                   |
+| `ember`    | Background mod     | Keeps the prompt cache warm while you are away, and warns when a resumed one went cold.  |
+| `git`      | `git:gitignore`    | Builds and updates `.gitignore` files from the official github/gitignore templates.      |
+| `kanso`    | Two skills, a hook | Sets one writing style for all text, and turns substantial answers into pages.           |
+| `ribbon`   | Prompt band mod    | Shows a band above the prompt with the session's time, cost, project, branch and limits. |
+| `workflow` | Five skills        | Plans, coordinates, builds test first, reviews and opens pull requests. Needs `kanso`.   |
 
 ## Installation
 

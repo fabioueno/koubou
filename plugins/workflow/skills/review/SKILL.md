@@ -119,8 +119,8 @@ Build the artifact from this skill's template, `assets/review.html`:
    such pages. Use a shell copy, such as `cp`. Without a shell, write a copy
    that changes nothing apart from `REVIEW`.
 2. Edit only the `REVIEW` object. Do not restyle or restructure the page. The
-   template replaces the page design steps of `kanso:explain`, but the writing
-   rules of that skill apply to every word.
+   template replaces the page design steps of `kanso:explain`, but `kanso:write`
+   applies to every word.
 3. Put the changed lines in the page with this skill's script:
    `scripts/embed-diffs.sh <page> 0.patch`. Never copy a diff into `REVIEW` by
    hand. When you run the script again, it replaces the diff that the page
