@@ -3,12 +3,12 @@ name: implement
 description: >
   Build one slice of approved work end to end: read the brief or the plan,
   settle its design stops, write the code with its tests and docs, run the
-  automated and manual checks, and stop before anything is staged or
-  committed, so the user can test it. Use this skill when a session receives a
-  brief or a slice to build, when the user says to start, build or continue a
-  slice of a plan, when a plan chose to run the work in this session, or when
-  a change is too small to plan. Also use it when a coordinator says to
-  rebase or sends fixes after its review.
+  automated and manual checks, and stop before anything is staged or committed,
+  so the user can test it. Use this skill when a session receives a brief or a
+  slice to build, when the user says to start, build or continue a slice of a
+  plan, when a plan chose to run the work in this session, or when a change is
+  too small to plan. Also use it when a coordinator says to rebase or sends
+  fixes after its review.
 ---
 
 # workflow:implement
@@ -21,7 +21,7 @@ commits.
 
 ## Where the work comes from
 
-A slice reaches this skill in one of two ways. The steps are the same; only the
+A slice reaches this skill in one of two ways. The steps are the same. Only the
 place where questions and reports go is different.
 
 - **A brief from a coordinator.** A session that `workflow:coordinate` runs
@@ -57,8 +57,8 @@ and the response), what it costs, and the alternative you rejected. Then wait
 for the answer.
 
 While you wait, build only the parts that do not depend on the design. When the
-answer changes the design, rewrite it and send it again; do not build on a
-design nobody approved.
+answer changes the design, rewrite it and send it again. Do not build on a
+design that nobody approved.
 
 When a design source exists for a screen, read it and build from it. When none
 exists, describe the screen with the design stop instead of inventing it in
@@ -74,17 +74,16 @@ the code exists because a test asked for it:
 
 1. Write the first test. Run it, and see it fail for the reason you expect.
 2. Make it pass with the smallest change.
-3. Write the next test and see it fail. Change the code that exists by the
-   smallest step that makes this test pass while every earlier test still
-   passes.
+3. Write the next test and see it fail. Then change the existing code by the
+   smallest step that makes this test pass. Every earlier test must still pass.
 4. Repeat until every test on the list passes.
 5. Refactor with every test passing: remove duplication, fold lookalike helpers
    into one, improve names, and make the code match the project's conventions.
    Run the tests after each change.
 
 A fix starts the same way, with a test that fails for the reason in the report.
-A part that a test cannot drive, such as how a screen looks or a doc, is covered
-by the read-back and the manual check instead.
+The read-back and the manual check cover what a test cannot drive, such as how a
+screen looks or a doc.
 
 While you build:
 
@@ -94,7 +93,7 @@ While you build:
   leave them.
 - Use the project's shared pieces, such as components, helpers and tokens,
   instead of building copies. When a shared piece cannot do what the slice
-  needs, report that as a fact; do not add a variant to it on your own.
+  needs, report that as a fact. Do not add a variant to it yourself.
 - Update the docs in the same change as the code they cover. A doc says what is
   true now, not the history of the change.
 - When a small decision is not in the brief or the plan, choose a reasonable
@@ -138,9 +137,9 @@ Name the lock after the resource it protects, such as `e2e.lock` for the
 end-to-end tests.
 
 - Take the lock in a step of its own, and continue only when `mkdir` succeeded.
-- When `mkdir` fails, another session holds the lock; its `owner` file names it.
-  Wait for it with a loop that ends when your `mkdir` succeeds, run with the
-  `Monitor` tool or in the background. Do not poll by hand.
+- When `mkdir` fails, another session holds the lock. Its `owner` file names
+  that session. Wait for it with a loop that ends when your `mkdir` succeeds,
+  run with the `Monitor` tool or in the background. Do not poll by hand.
 - With the lock taken, check that the ports the run needs are free. A port that
   is busy belongs to a server that no lock covers, often the user's own. Never
   stop that process, and never run a suite through a server you did not start.
@@ -157,9 +156,9 @@ Before you stop, read the whole diff as the reviewer will:
 
 - Check it against the brief or the plan, line by line: everything in scope is
   there, and nothing out of scope is.
-- Check the project's conventions in every touched file. Where a rule can be
-  checked by a script, such as line length, comment rules or declaration order,
-  script it rather than trust a read.
+- Check the project's conventions in every touched file. Check a rule with a
+  script when a script can check it, such as line length, comment rules or
+  declaration order. Do not trust a read for those.
 - Remove what the slice no longer uses: dead code, debug output, files that
   nothing references.
 
@@ -182,11 +181,11 @@ Report in this order:
 With a brief, send this report to the coordinator, which reviews and tests the
 work before the user sees it. Apply the fixes it sends, check again, and report
 again. Without a brief, end the report by asking the user to test the slice with
-the steps from item 1, and offer `workflow:review` for when they are happy with
-it.
+the steps from item 1, and offer `workflow:review` for when they approve the
+slice.
 
 ## Rebase when told
 
 When the coordinator or the user says the base moved, rebase the branch onto the
-new base. Resolve each conflict by reading both sides; never take one side
-whole. Then run again the checks that the rebase touched, and report the result.
+new base. Resolve each conflict by reading both sides. Never take one side
+whole. Then run the checks that the rebase touched again, and report the result.

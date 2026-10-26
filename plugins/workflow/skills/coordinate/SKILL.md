@@ -3,20 +3,20 @@ name: coordinate
 description: >
   Run an approved plan across separate Claude sessions from this one: choose the
   slices that can start, brief fresh sessions, answer their design stops, review
-  and test their work before the user sees it, keep the plan current, and clean
-  up after each merge. Use this skill when a plan has several slices or parallel
-  lanes, when the user asks what is next, asks to brief, start or check a
-  session, relays a session's message, or says a pull request merged. Also use
-  it when another session reports to this one.
+  and test their work before the user sees it, keep the plan current, and tidy
+  the branches after each merge. Use this skill when a plan has several slices
+  or parallel lanes, when the user asks what is next, asks to brief, start or
+  check a session, relays a session's message, or says a pull request merged.
+  Also use it when another session reports to this one.
 ---
 
 # workflow:coordinate
 
-The user wants to stay in control of what gets built without driving each slice.
-This session is the hub. The slice sessions build, and this session keeps them
-on the plan, reviews their work before the user does, and keeps the plan
-current. The user then reviews work that is already checked, and spends their
-time on decisions and on what they see in the product.
+The user wants to stay in control of what the sessions build, without directing
+each slice. This session is the hub. The slice sessions build, and this session
+keeps them on the plan, reviews their work before the user does, and keeps the
+plan current. The user then reviews work that is already checked, and spends
+their time on decisions and on what they see in the product.
 
 Each slice runs in a separate session that the user created and can talk to.
 Never use subagents for slice work: the user cannot see or steer them while they
@@ -43,11 +43,11 @@ these hold:
 
 When two sessions share a name, address the one you mean by its ref from the
 listing. When no such session exists, ask the user to start one per slice. The
-user only starts an empty session; this session briefs it and carries every
-message between the user and it:
+user only starts an empty session. This session briefs it and carries every
+message between the user and that session:
 
 1. Find the command that starts Claude on this machine. If `CLAUDE_CONFIG_DIR`
-   is not set, it is `claude`. If it is set, look for a shell alias whose whole
+   is not set, it is `claude`. If it is set, find a shell alias whose whole
    definition is `CLAUDE_CONFIG_DIR="<that folder>" claude`, for example with
    `zsh -ic alias`, and use its name. Skip an alias that also runs something
    else, such as an upgrade. If no alias matches, use `CLAUDE_CONFIG_DIR="<that
@@ -60,8 +60,8 @@ message between the user and it:
    as with a few sessions, use the feature's name and give one command each.
    When the slices are numbered parts of one plan, use the number and give one
    `for` loop.
-4. List the sessions again once the user says they are running, and brief each
-   one (step 2).
+4. List the sessions again when the user says that the sessions run, and brief
+   each one (step 2).
 
 For example, with `ccp` as the command, two features of their own:
 
@@ -81,13 +81,18 @@ done
 ## 2. Brief each session
 
 Write the brief from this skill's template, `assets/brief.md`, and save it as a
-file. Then send it with `SendMessage`: a short message whose first line names
-the slice on its own, followed by the brief's absolute path and the name this
-session answers to. The session reads the file itself, so never paste the brief
-into the message. The brief carries only what is specific to the slice: where it
-works, the decisions and sources it must respect, its scope, its design stops,
-and what is out of scope. The `workflow:implement` skill holds how to build,
-test and stop, so the brief does not repeat it.
+file. Then send the session a short `SendMessage` with these lines:
+
+1. The name of the slice, on its own.
+2. The brief's absolute path.
+3. The name that this session answers to.
+
+The session reads the file itself, so never paste the brief into the message.
+
+The brief holds only what is specific to the slice: where it works, the
+decisions and sources it must respect, its scope, its design stops, and what is
+out of scope. The `workflow:implement` skill holds how to build, test and stop,
+so the brief does not repeat it.
 
 Write each brief with the writing rules of the `kanso:explain` skill. Check each
 fact in it against the repository and the plan before you send it. A wrong
@@ -114,13 +119,13 @@ in their terms.
 
 ## 4. Review before the user does
 
-When a session reports that a slice is built and green, review it before it
-stages anything for the user.
+When a session reports that a slice is built and its checks pass, review the
+slice before the session stages anything for the user.
 
 1. Read the diff yourself. Check it against the plan, the brief and the design
    sources.
 2. Read every new or changed shared piece: components, variants, tokens and
-   shared helpers. Look for hand-built copies of shared pieces and for
+   shared helpers. Search for hand-built copies of shared pieces and for
    duplication across the slice. A value that a shared piece cannot produce is a
    fact to report to the user, never a reason to add a variant.
 3. For a large or risky change, such as a migration, concurrency or security,
@@ -129,8 +134,9 @@ stages anything for the user.
 4. Run the tests yourself: the checks, the unit tests, and the tests that the
    change reaches. Follow the shared-resource rules below. A session's report
    that its tests pass does not replace your run.
-5. Send one combined list of fixes, with file, line and the fix for each. Then
-   let the session stage its chunks for the user.
+5. Send one combined list of fixes, with the file, the line and the fix for
+   each. When the session has applied the fixes, tell it to continue with
+   `workflow:review`.
 
 ## Shared resources
 
@@ -143,17 +149,17 @@ user's own server. Wait for it, and tell the user what holds it.
 ## 5. Keep the plan current
 
 The plan is the source of truth while the work runs. Update it when a slice
-starts, when a decision changes, when slices are folded together or deferred,
-and when a slice merges. Increase its revision, and publish the same file again
-with the `Artifact` tool, so the link stays the same.
+starts, when a decision changes, when slices join or move to later, and when a
+slice merges. Increase its revision, and publish the same file again with the
+`Artifact` tool, so the link stays the same.
 
 ## 6. After a merge
 
 When the user says that a pull request merged:
 
 1. Update the local default branch.
-2. Check that the merged branch's work is exactly what was merged. For a squash
-   merge, compare the branch's tree or patch with its merge commit.
+2. Check that the merge holds exactly the branch's work. For a squash merge,
+   compare the branch's tree or patch with its merge commit.
 3. Then remove the slice's worktree and delete its branch. Never remove a
    worktree or branch that does not match its merge, or that you did not create,
    without asking.
@@ -164,7 +170,7 @@ When the user says that a pull request merged:
 
 ## Talk to the user
 
-The user may lose track across many sessions. When they ask what is pending,
-answer with a short list: the decisions waiting for them first, then the
-reviews, then what can start next. Every message to the user leads with what
-changed and what they need to do.
+The user may not remember the state of every session. When they ask what is
+pending, answer with a short list: first the decisions that wait for them, then
+the reviews, then what can start next. Start every message to the user with what
+changed and what they must do.

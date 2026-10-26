@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Pushes main and feat/digest-contents to a local remote, then moves main on
-# the remote only, as when a teammate merges while the branch waits.
+# Pushes main and feat/digest-contents to a local remote, then moves main on the
+# remote only, as when a teammate merges while the branch waits.
 
 set -euo pipefail
 

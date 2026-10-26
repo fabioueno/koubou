@@ -1,31 +1,31 @@
 ---
 name: review
 description: >
-  Review a change in a review artifact that walks through it step by step and
-  shows every changed line, so the user can review it without git diff or
-  GitHub. For the user's own built change, the walkthrough is grouped into
-  small commits that are staged one at a time and committed only when the user
+  Review a change in a review artifact that explains it step by step and shows
+  every changed line, so the user can review it without git diff or GitHub. For
+  the user's own built change, the skill groups the walkthrough into small
+  commits, stages them one at a time, and commits each one only when the user
   approves. For someone else's pull request or branch, the same walkthrough
   comes with findings that link to their lines. Use this skill when a slice is
   built and the user wants to review it, asks to stage, commit or split work
   into commits, says the change works and is ready, or asks to review a pull
-  request, a branch or a colleague's change. Also use it when a coordinator
-  says a session's work passed its review.
+  request, a branch or a colleague's change. Also use it when a coordinator says
+  a session's work passed its review.
 ---
 
 # workflow:review
 
 The user commits nothing they have not understood, and wants to understand a
-change in one place. The review artifact teaches the change: it walks through it
-one idea at a time, in the order that makes each idea easy to follow, and shows
-the lines of each idea next to its explanation. The user never has to switch to
-`git diff` or to GitHub.
+change in one place. The review artifact teaches the change: it explains it one
+idea at a time, in the order that makes each idea easy to follow, and shows the
+lines of each idea next to its explanation. The user never has to switch to `git
+diff` or to GitHub.
 
 This skill reviews two kinds of change, with the same walkthrough:
 
-- **Your own change**, built and checked by `workflow:implement`. The
-  walkthrough is grouped into small commits, and the commits are handed over one
-  at a time. When the change is not built and checked yet, say so and go back to
+- **Your own change**, built and checked by `workflow:implement`. The skill
+  groups the walkthrough into small commits and gives the user one commit at a
+  time. When the change is not built and checked yet, say so and return to
   `workflow:implement` first.
 - **Someone else's change**, such as a pull request. The walkthrough comes with
   findings. There are no commits to cut, and the review commits, pushes or
@@ -55,17 +55,17 @@ color them, and neither output is a patch that the page or `git apply` can read.
 
 Save the whole change as one patch, `0.patch`, in a folder inside the
 repository's git folder, such as `$(git rev-parse --git-dir)/review/<branch>/`,
-so the patches never show up as changes. For your own change, put new files in
-it with `git diff --no-index -- /dev/null <path>`.
+so that the patches never appear as changes. For your own change, put new files
+in it with `git diff --no-index -- /dev/null <path>`.
 
 ## 2. Plan the walkthrough
 
 Split the change into steps. A step is one idea in the code: a type, a function,
 a migration, a middleware, a test suite, a doc. Order the steps so that each one
 uses only what the steps above it introduced. For example, a sign-in feature
-might go: the migration that adds the `users` table, the `User` entity that maps
-a row, the service that checks a password, the middleware that reads the
-session, the route that signs in, and the docs.
+might have these steps: the migration that adds the `users` table, the `User`
+entity that maps a row, the service that checks a password, the middleware that
+reads the session, the route that signs in, and the docs.
 
 For each step, answer what a reviewer asks:
 
@@ -74,12 +74,12 @@ For each step, answer what a reviewer asks:
   code?
 - How does it work, when that is not obvious from the lines?
 - What else was considered, and why not? Name the real alternatives, such as
-  inlining a helper, another data shape, or a library, and the cost that ruled
-  each one out.
+  inlining a helper, another data shape, or a library, and the cost that
+  excluded each one.
 - What does the next step take from this one? The link names the concrete thing
   that the next step uses, such as "`listDigest` returns a `Digest`, so the
-  shape comes first". A link that only says the next step can now exist explains
-  nothing; rewrite it.
+  shape comes first". A link that only says that the next step can now exist
+  explains nothing. Rewrite it.
 
 Every changed line belongs to a step. The page marks the lines that no step
 covers, so cover them or explain them in a note.
@@ -113,43 +113,52 @@ project or the user's instructions ask for, and no other.
 
 ## 4. Write the review artifact
 
-Build the artifact from this skill's template, `assets/review.html`. Copy the
-file next to the plan, or where the project keeps such pages, with a shell copy,
-such as `cp`, and then edit only its `REVIEW` object. Without a shell, write it
-out unchanged apart from `REVIEW`. Do not restyle or restructure it: the
-template replaces the page design steps of `kanso:explain`, while its writing
-rules apply to every word.
+Build the artifact from this skill's template, `assets/review.html`:
 
-Put the changed lines in the page with this skill's `scripts/embed-diffs.sh
-<page> 0.patch`. Never copy a diff into `REVIEW` by hand. Running the script
-again replaces the diff that the page holds. Publish the filled file with the
-`Artifact` tool, and give the artifact's link and the file's path.
+1. Copy the template next to the plan, or to the folder where the project keeps
+   such pages. Use a shell copy, such as `cp`. Without a shell, write a copy
+   that changes nothing apart from `REVIEW`.
+2. Edit only the `REVIEW` object. Do not restyle or restructure the page. The
+   template replaces the page design steps of `kanso:explain`, but the writing
+   rules of that skill apply to every word.
+3. Put the changed lines in the page with this skill's script:
+   `scripts/embed-diffs.sh <page> 0.patch`. Never copy a diff into `REVIEW` by
+   hand. When you run the script again, it replaces the diff that the page
+   holds.
+4. Publish the file with the `Artifact` tool, and give the artifact's link and
+   the file's path.
 
-Fill in the `REVIEW` object like this:
+Fill the `REVIEW` object like this:
 
 - `mode` is `own` for your own change and `others` for someone else's.
-- `title` is a claim about the change in one sentence; for someone else's
+- `title` is a claim about the change in one sentence. For someone else's
   change, it is your verdict. `lede` says what the change lets people do and how
   it gets there, in up to three sentences.
 - `context`, `problem` and `solution` each hold a `title` that makes a claim and
   short `paras`. Context is why the change exists now. Problem is what was wrong
-  or missing, with real names. Solution is the approach as a whole; add an
+  or missing, with real names. Solution is the approach as a whole. Add an
   inline `svg` when a before and after or a flow explains it better than prose,
-  drawn with the diagram rules of `kanso:explain`.
-- `steps.list` holds the walkthrough from step 2, in order. Each step has a
-  `title`; the `file` and the `lines` it covers, as `[first, last]` in the new
-  file, so the page shows exactly those lines; `what`, `why` and `how`;
-  `tradeoffs` as `[alternative, why not]` rows; and `next`, the link to the
-  following step. `steps.title` makes a claim about how the parts fit together,
-  and `steps.sub` tells how to read the walkthrough.
-- `commits.list` has one entry for each commit, in order: its `subject`; `why`,
-  why these steps make one commit; `steps`, how many of the following steps it
-  holds; `checks`, what proves it works alone; and a `status` of `todo`,
-  `staged` or `done`, with its `hash` once made.
+  and draw it with the diagram rules of `kanso:explain`.
+- `steps.list` holds the walkthrough from step 2, in order. `steps.title` makes
+  a claim about how the parts fit together, and `steps.sub` tells how to read
+  the walkthrough. Each step has these fields:
+  - `title`.
+  - `file` and `lines`: the file and the lines that the step covers, as `[first,
+    last]` in the new file. The page shows exactly those lines.
+  - `what`, `why` and `how`: the answers from step 2.
+  - `tradeoffs`: `[alternative, why not]` rows.
+  - `next`: the link to the following step.
+- `commits.list` has one entry for each commit, in order. Each commit has these
+  fields:
+  - `subject`.
+  - `why`: why these steps make one commit.
+  - `steps`: how many of the following steps the commit holds.
+  - `checks`: what proves that the commit works alone.
+  - `status`: `todo`, `staged` or `done`, and `hash` once the commit exists.
 - `findings.rows` are `[file:line, what to change and why, level]`, where the
   level is `blocker`, `suggestion` or `question`, and the line is in the new
   file. The page links each finding to its line. Fill it for someone else's
-  change; for your own, fix the problems you find before the review instead.
+  change. For your own change, fix the problems that you find before the review.
 - `checks.rows` are `[check, its command and what it showed, result]`, where the
   result is `pass`, `fail` or `skipped`. Include the manual check, and every
   check that could not run.
@@ -166,7 +175,7 @@ it.
 
 For someone else's change, the review ends here. Give the user the artifact's
 link, the verdict and the blockers. Post nothing on the pull request unless the
-user asks; a comment there is public.
+user asks. A comment there is public.
 
 ## 5. Stage one commit and explain it
 
@@ -176,9 +185,9 @@ user asks; a comment there is public.
    be committed, and `git diff` shows what waits for later commits.
 3. When the project's checks run in reasonable time, check the staged tree
    alone. For example, commit the staged tree to a temporary commit with `git
-   commit-tree $(git write-tree) -p HEAD`, check it out with `git worktree add
-   --detach`, run the checks there, and remove that worktree with `git worktree
-   remove`.
+   commit-tree $(git write-tree) -p HEAD`. Check that commit out with `git
+   worktree add --detach`, and run the checks there. Then remove that worktree
+   with `git worktree remove`.
 4. Set the commit's `status` to `staged`, and publish the same file again with
    the `Artifact` tool.
 
@@ -199,7 +208,7 @@ plan, or of an earlier commit is not approval of this one.
   artifact again before you stage the commit again.
 - Never push. Pushing and the pull request belong to `workflow:pr`.
 
-When the last commit is made, run the project's checks once more on the branch,
-confirm that nothing of the slice is left unstaged, and offer `workflow:pr`. In
-a session that a coordinator runs, also report the commits to the coordinator
-with `SendMessage`.
+After the last commit, run the project's checks once more on the branch, confirm
+that nothing of the slice is left unstaged, and offer `workflow:pr`. In a
+session that a coordinator runs, also report the commits to the coordinator with
+`SendMessage`.

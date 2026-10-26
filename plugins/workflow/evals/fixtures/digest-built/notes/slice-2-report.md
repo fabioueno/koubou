@@ -13,7 +13,7 @@ slice 3 sends the email.
 
 ## Named defaults
 
-- Overdue tasks are listed oldest first; tasks due tomorrow keep their order.
+- Overdue tasks come oldest first. Tasks due tomorrow keep their order.
 - Tomorrow is computed in UTC from the ISO day, so month and year ends work.
 
 ## Open questions

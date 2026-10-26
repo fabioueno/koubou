@@ -4,8 +4,8 @@ Revision 2, approved on Sat 24 Oct 2026.
 
 ## Goal
 
-Every household member gets one email each morning that lists overdue tasks
-and tasks due tomorrow.
+Every household member gets one email each morning that lists overdue tasks and
+tasks due tomorrow.
 
 ## Decisions
 
@@ -19,18 +19,18 @@ and tasks due tomorrow.
 
 ## Slices
 
-1. **Members.** A `members` table with name, email and time zone, and a
-   Members screen to add and remove people. Touches `migrations/`,
-   `src/members.ts`, `src/routes/members.ts` and `docs/architecture.md`.
-   Size M. Design stop: the table. Lane A.
-2. **Digest contents.** A pure `listDigest(tasks, today)` in `src/tasks.ts`
-   that returns overdue tasks and tasks due tomorrow, with unit tests, and a
-   preview of the digest on the task list. Touches `src/tasks.ts`,
-   `src/routes/tasks.ts` and `docs/architecture.md`. Size S. Lane B.
+1. **Members.** A `members` table with name, email and time zone, and a Members
+   screen to add and remove people. Touches `migrations/`, `src/members.ts`,
+   `src/routes/members.ts` and `docs/architecture.md`. Size M. Design stop: the
+   table. Lane A.
+2. **Digest contents.** A pure `listDigest(tasks, today)` in `src/tasks.ts` that
+   returns overdue tasks and tasks due tomorrow, with unit tests, and a preview
+   of the digest on the task list. Touches `src/tasks.ts`, `src/routes/tasks.ts`
+   and `docs/architecture.md`. Size S. Lane B.
 3. **Scheduled send.** An hourly Cron Trigger that sends each member their
-   digest at 07:00 local time and records `digest_sends`. Needs slices 1
-   and 2. Touches `src/cron.ts`, `migrations/` and `docs/architecture.md`.
-   Size M. Design stop: the send log. Lane A after B.
+   digest at 07:00 local time and records `digest_sends`. Needs slices 1 and 2.
+   Touches `src/cron.ts`, `migrations/` and `docs/architecture.md`. Size M.
+   Design stop: the send log. Lane A after B.
 
 ## Lanes
 

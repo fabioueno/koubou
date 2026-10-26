@@ -3,11 +3,11 @@ name: pr
 description: >
   Open a pull request for a reviewed branch: bring the branch up to date with
   its base, rebase and test again when it is behind, draft the title and the
-  description, push and create the pull request only when the user approves,
-  and offer to watch its CI checks. Use this skill when the commits of a
-  branch are made and the user asks to open, create or raise a pull request,
-  to push the branch, or to ship or send the work for review, and when
-  workflow:review offers it after the last commit.
+  description, push and create the pull request only when the user approves, and
+  offer to watch its CI checks. Use this skill when a branch has its commits and
+  the user asks to open, create or raise a pull request, to push the branch, or
+  to ship or send the work for review, and when workflow:review offers it after
+  the last commit.
 ---
 
 # workflow:pr
@@ -18,14 +18,13 @@ base, and a description that tells a reader what changed and why without opening
 the code first. Pushing and creating the pull request change what other people
 see, so this skill does both only when the user approves.
 
-The commits are made before this skill starts (`workflow:review`). When the
-branch has changes that are not committed, say so and go back to that skill
-first.
+`workflow:review` makes the commits before this skill starts. When the branch
+has changes that are not committed, say so and return to that skill first.
 
 ## 1. Check the branch
 
-1. Confirm the branch is not the default branch, and that nothing of the work is
-   left unstaged or uncommitted.
+1. Confirm that the branch is not the default branch, and that all of the work
+   is committed.
 2. Find the base: the branch the work goes into. Usually it is the default
    branch. When the branch starts from another branch that has not merged yet,
    the base is that branch, and the pull request stacks on its pull request.
@@ -36,8 +35,8 @@ first.
 1. Fetch the base from the remote, and compare the branch with it, such as with
    `git rev-list --count HEAD..origin/<base>`.
 2. When the base has moved, rebase the branch onto it, unless the project's
-   rules ask for a merge instead. Resolve each conflict by reading both sides;
-   never take one side whole.
+   rules ask for a merge instead. Resolve each conflict by reading both sides.
+   Never take one side whole.
 3. After a rebase, run the project's checks again, and the tests that the change
    and the new commits of the base reach. Report what ran and what it showed. Do
    not open the pull request on a branch that fails.
@@ -53,14 +52,15 @@ instructions. Without them, use these:
 
 - The title is a conventional commit subject: `type(scope): subject` in the
   imperative, at most 50 characters. Count the characters.
-- The description has two sections and nothing else: `# Context`, why the change
-  exists and what was wrong or missing, and `# Implementation`, what changed and
-  how, with the decisions a reviewer would ask about. Write them in prose. Keep
-  each paragraph on one line: GitHub shows a line break inside a paragraph as a
-  break.
+- The description has two sections and nothing else:
+  - `# Context`: why the change exists, and what was wrong or missing.
+  - `# Implementation`: what changed and how, with the decisions that a reviewer
+    would ask about.
+- Write both sections in prose. Keep each paragraph on one line, because GitHub
+  shows a line break inside a paragraph as a break.
 - Write with the writing rules of `kanso:explain`. Describe the change as it is
-  now. Leave out planning labels such as slice numbers, the history of the
-  review, and links to private pages.
+  now. Omit planning labels such as slice numbers, the history of the review,
+  and links to private pages.
 - Add a footer or an attribution line only when the project or the user's
   instructions ask for one.
 
@@ -88,9 +88,9 @@ When the repository runs checks on pull requests, ask the user with
 `AskUserQuestion` whether to watch them, with your suggestion first and labeled
 "(suggested)". Skip the question when `gh pr checks` shows no checks.
 
-To watch, run a loop with the `Monitor` tool that reads `gh pr checks <number>
---json name,bucket`, reports each check once it finishes, and ends when no check
-is pending. Report a pass in one line. When a check fails:
+To watch the checks, run a loop with the `Monitor` tool. The loop reads `gh pr
+checks <number> --json name,bucket`, reports each check when it finishes, and
+ends when no check is pending. Report a pass in one line. When a check fails:
 
 1. Read its log, such as with `gh run view <run> --log-failed`, and find the
    cause.
@@ -104,8 +104,8 @@ Never rerun a failed check to make it pass without knowing why it failed.
 
 ## After the merge
 
-When the user says the pull request merged, a coordinator cleans up
-(`workflow:coordinate`). Without one, do the same here: update the local default
-branch, check that the merged commit holds exactly the branch's work, then
-delete the branch and its worktree. Never delete a branch whose work does not
-match its merge without asking.
+When the user says that the pull request merged, a coordinator removes the
+branch and its worktree (`workflow:coordinate`). Without a coordinator, do the
+same here: update the local default branch, check that the merged commit holds
+exactly the branch's work, then delete the branch and its worktree. Never delete
+a branch whose work does not match its merge without asking.
