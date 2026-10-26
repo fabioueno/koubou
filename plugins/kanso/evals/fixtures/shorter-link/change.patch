@@ -1,0 +1,35 @@
+From 3f9c2d1e8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d Mon Sep 17 00:00:00 2001
+From: Mariana Costa <mariana@ledgerly.app>
+Date: Tue, 21 Oct 2025 14:12:09 -0300
+Subject: [PATCH] fix(auth): shorten the sign-in link to 10 minutes
+
+The October security review asked for a shorter window in which a
+forwarded or leaked sign-in link still works.
+---
+ src/auth/email.ts     | 2 +-
+ src/auth/send-link.ts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/auth/email.ts b/src/auth/email.ts
+--- a/src/auth/email.ts
++++ b/src/auth/email.ts
+@@ -3,6 +3,6 @@ export async function sendSignInEmail(mailer: SendEmail, to: string, link: strin
+     from: "sign-in@ledgerly.app",
+     to,
+     subject: "Your Ledgerly sign-in link",
+-    text: `Open this link to sign in. It works once, for 15 minutes.\n\n${link}`,
++    text: `Open this link to sign in. It works once, for 10 minutes.\n\n${link}`,
+   });
+ }
+diff --git a/src/auth/send-link.ts b/src/auth/send-link.ts
+--- a/src/auth/send-link.ts
++++ b/src/auth/send-link.ts
+@@ -1,7 +1,7 @@
+ import { allowSend } from "./gate";
+ import { sendSignInEmail } from "./email";
+ 
+-const TOKEN_TTL_SECONDS = 15 * 60;
++const TOKEN_TTL_SECONDS = 10 * 60;
+ 
+ export async function sendLink(request: Request, env: Env): Promise<Response> {
+   const form = await request.formData();

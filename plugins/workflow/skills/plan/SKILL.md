@@ -107,7 +107,7 @@ The plan is a durable artifact that the later phases read and update. Its value
 is that it is specific: each decision, scenario and slice names the real things
 in this project. Make the plan richer with more concrete items, never with
 longer items. Each item stays one or two short sentences, written with the
-writing rules of the `kanso:explain` skill.
+`kanso:write` skill.
 
 Build the artifact from this skill's template, `assets/plan.html`:
 
@@ -115,8 +115,8 @@ Build the artifact from this skill's template, `assets/plan.html`:
    copy, such as `cp`, so that you do not read the template and write it again.
    Without a shell, write a copy that changes nothing apart from `PLAN`.
 2. Edit only the `PLAN` object. Do not restyle or restructure the page. The
-   template replaces the page design steps of `kanso:explain`, but the writing
-   rules of that skill apply to every word.
+   template replaces the page design steps of `kanso:explain`, but `kanso:write`
+   applies to every word.
 3. Publish the file with the `Artifact` tool, and give the artifact's link and
    the file's path. To update the plan, publish the same file again, so that the
    link stays the same.

@@ -24,7 +24,7 @@
     {
       "name": "kanso",
       "source": "./plugins/kanso",
-      "description": "Explanations in simplified technical English, delivered as HTML pages with diagrams."
+      "description": "One plain writing style for all text, and substantial answers as HTML pages with diagrams."
     },
     {
       "name": "ribbon",

@@ -58,9 +58,9 @@ instructions. Without them, use these:
     would ask about.
 - Write both sections in prose. Keep each paragraph on one line, because GitHub
   shows a line break inside a paragraph as a break.
-- Write with the writing rules of `kanso:explain`. Describe the change as it is
-  now. Omit planning labels such as slice numbers, the history of the review,
-  and links to private pages.
+- Write with the `kanso:write` skill. Describe the change as it is now. Omit
+  planning labels such as slice numbers, the history of the review, and links
+  to private pages.
 - Add a footer or an attribution line only when the project or the user's
   instructions ask for one.
 

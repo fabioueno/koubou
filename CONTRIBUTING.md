@@ -76,6 +76,10 @@ Plugins carry no `version`. Claude Code then versions each plugin by the
 commit of its folder, so a merge updates only the plugins it touched. Add a
 version only when another plugin needs a dependency range on it.
 
+A plugin can also carry plain command hooks in `hooks/hooks.json`, in Claude
+Code's standard format, such as the SessionStart hook of `kanso`. Such a plugin
+is not a mod, and it keeps its evals.
+
 ## Mods
 
 A mod is a plugin whose `hooks/hooks.json` names TypeScript modules that change

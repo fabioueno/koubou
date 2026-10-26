@@ -1,8 +1,8 @@
 # Word swaps
 
 Common swaps for the writing rules. Use the right column. The list is a guide,
-not a dictionary: if a word on the left is the clearest choice in context,
-keep it.
+not a dictionary: if a word on the left is the clearest choice in context, keep
+it.
 
 ## Phrasal verbs
 
@@ -105,8 +105,8 @@ hedge that carries real doubt.
 
 ## Passive to active
 
-Use these only when you know the actor. If the source does not say who does
-the action, keep the passive.
+Use these only when you know the actor. If the source does not say who does the
+action, keep the passive.
 
 | Instead of                    | Write                            |
 | ----------------------------- | -------------------------------- |

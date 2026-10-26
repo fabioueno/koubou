@@ -94,9 +94,9 @@ decisions and sources it must respect, its scope, its design stops, and what is
 out of scope. The `workflow:implement` skill holds how to build, test and stop,
 so the brief does not repeat it.
 
-Write each brief with the writing rules of the `kanso:explain` skill. Check each
-fact in it against the repository and the plan before you send it. A wrong
-instruction in a brief becomes wrong code in several places.
+Write each brief with the `kanso:write` skill. Check each fact in it against
+the repository and the plan before you send it. A wrong instruction in a brief
+becomes wrong code in several places.
 
 Repository text has its own rules. If the project forbids naming something in
 code, docs or commit messages, such as a design tool or an internal planning
