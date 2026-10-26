@@ -2,8 +2,9 @@
   <h1>Koubou (工房)</h1>
 
   <p>
-    A Claude Code plugin marketplace. Each plugin does one job, turns on or off
-    on its own, and ships with its own evals.
+    Koubou is a Claude Code plugin marketplace. Each plugin does one job, and
+    you can enable or disable each one on its own. Each plugin has its own
+    evals, or its own tests when it is a mod.
   </p>
 </div>
 
@@ -11,13 +12,14 @@
 
 ## Plugins
 
-| Plugin   | Provides        | What it does                                                                             |
-| -------- | --------------- | ---------------------------------------------------------------------------------------- |
-| `crew`   | Sidebar mod     | Shows a side panel with a card for each agent at work.                                   |
-| `ember`  | Background mod  | Keeps the prompt cache warm while you are away, and warns when a resumed one went cold.  |
-| `git`    | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates.      |
-| `kanso`  | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.        |
-| `ribbon` | Prompt band mod | Shows a band above the prompt with the session's time, cost, project, branch and limits. |
+| Plugin     | Provides        | What it does                                                                             |
+| ---------- | --------------- | ---------------------------------------------------------------------------------------- |
+| `crew`     | Sidebar mod     | Shows a side panel with a card for each agent at work.                                   |
+| `ember`    | Background mod  | Keeps the prompt cache warm while you are away, and warns when a resumed one went cold.  |
+| `git`      | `git:gitignore` | Builds and updates `.gitignore` files from the official github/gitignore templates.      |
+| `kanso`    | `kanso:explain` | Writes explanations in simplified technical English, as HTML pages with diagrams.        |
+| `ribbon`   | Prompt band mod | Shows a band above the prompt with the session's time, cost, project, branch and limits. |
+| `workflow` | Five skills     | Plans, coordinates, builds test first, reviews and opens pull requests. Needs `kanso`.   |
 
 ## Installation
 
@@ -30,9 +32,10 @@ Add the marketplace, then install the plugins you want:
 /plugin install git@koubou
 /plugin install kanso@koubou
 /plugin install ribbon@koubou
+/plugin install workflow@koubou
 ```
 
-Turn a plugin off or on again without uninstalling it:
+Disable a plugin, or enable it again, without uninstalling it:
 
 ```text
 /plugin disable kanso@koubou

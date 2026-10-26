@@ -102,6 +102,10 @@ names and data, never placeholders.
 Prefer graders that cost nothing (`regex`, `tool_used`, `file_exists`) and keep
 `llm` graders for short text with concrete PASS and FAIL conditions.
 
+A script that a skill bundles is code, not behavior, so a shell test checks it
+instead of an eval. The test lives in `plugins/<name>/tests/`, is named after
+the script, and runs directly, such as `plugins/workflow/tests/embed-diffs.sh`.
+
 ## Running a plugin's evals
 
 From the repository root, replacing `<name>` with the plugin:
@@ -117,6 +121,29 @@ the report shows the difference. It is published to claude.ai, and the command
 prints the link. A copy goes to `plugins/<name>/evals/results/`, which git
 ignores, because each run writes a new timestamped report. Add
 `--runs 1 --ablation none` for a quick check without the baseline.
+
+## Running the evals of a plugin with dependencies
+
+An eval installs only the plugin under test, and a plugin whose dependency is
+missing stays disabled, so its skills never load. List the dependency in each
+case's `plugins` field, after the plugin itself:
+
+```yaml
+plugins: [../.., ../../../kanso]
+```
+
+Then run the evals against `plugins/` rather than the plugin's folder, so that
+both plugins sit inside the folder the eval may load from:
+
+```sh
+claude plugin eval plugins --eval-dir <name>/evals --ablation with-without \
+  --trust-plugin --scaffold --judge-model claude-sonnet-5-5 \
+  --allow-tools $(cat plugins/<name>/evals/allow-tools)
+```
+
+Keep `--ablation with-without`. With `plugins/` as the target, no single
+plugin is under test, so the eval skips the baseline unless the flag asks for
+it.
 
 Keep `--allow-tools`. A case's `allowed_tools` grants only read-only tools, so
 without the grants in `evals/allow-tools` a run can write no files and every

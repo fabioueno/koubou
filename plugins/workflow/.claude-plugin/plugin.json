@@ -1,0 +1,12 @@
+{
+  "name": "workflow",
+  "description": "How work moves from an idea to a merged pull request: plan, coordinate, implement, review and open the pull request, each phase a skill of its own.",
+  "dependencies": [
+    "kanso"
+  ],
+  "author": {
+    "name": "Fabio Ueno",
+    "url": "https://github.com/fabioueno/koubou"
+  },
+  "repository": "https://github.com/fabioueno/koubou"
+}
