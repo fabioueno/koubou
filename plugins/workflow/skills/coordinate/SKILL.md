@@ -94,6 +94,11 @@ decisions and sources it must respect, its scope, its design stops, and what is
 out of scope. The `workflow:implement` skill holds how to build, test and stop,
 so the brief does not repeat it.
 
+A session reads its whole brief before it builds, so the reading target of
+`kanso:write` applies to it. Point to a source by its path and its lines. A
+decision, a design stop or a limit of the scope that the session needs always
+stays.
+
 Write each brief with the `kanso:write` skill. Check each fact in it against
 the repository and the plan before you send it. A wrong instruction in a brief
 becomes wrong code in several places.
