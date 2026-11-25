@@ -43,6 +43,7 @@ summarize() {
 CLAUDE_PLUGIN_ROOT="$root" bash "$summary" >"$work/out.txt"
 check "starts with the lead line" grep -q "^The user's writing style, from the kanso:write skill\." <(head -n 1 "$work/out.txt")
 check "holds the summary" grep -q "Do not use em dashes or semicolons\." "$work/out.txt"
+check "holds the length rule" grep -q "Cut words, never facts\." "$work/out.txt"
 check "leaves out the heading" fails grep -q "^## The rules in short" "$work/out.txt"
 check "stops at the next heading" fails grep -q "^## " "$work/out.txt"
 check "stays under 400 words" [ "$(wc -w <"$work/out.txt")" -lt 400 ]
