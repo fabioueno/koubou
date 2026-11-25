@@ -167,7 +167,8 @@ Fill the `PLAN` object like this:
   is out of scope]`.
 
 Leave a part empty when the work has nothing for it, and the template hides it.
-A small plan stays small.
+Keep the key and the empty value of such a part, as the template has them. A
+small plan stays small.
 
 Cut the slices with these rules:
 

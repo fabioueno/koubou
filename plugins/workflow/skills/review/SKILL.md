@@ -122,9 +122,10 @@ Build the artifact from this skill's template, `assets/review.html`:
    template replaces the page design steps of `kanso:explain`, but `kanso:write`
    applies to every word.
 3. Put the changed lines in the page with this skill's script:
-   `scripts/embed-diffs.sh <page> 0.patch`. Never copy a diff into `REVIEW` by
-   hand. When you run the script again, it replaces the diff that the page
-   holds.
+   `scripts/embed-diffs.sh <page> 0.patch`. Embed only `0.patch`, never the
+   patch of each commit: the page keeps one diff for each file. Never copy a
+   diff into `REVIEW` by hand. When you run the script again, it replaces the
+   diff that the page holds.
 4. Publish the file with the `Artifact` tool, and give the artifact's link and
    the file's path.
 
@@ -177,7 +178,7 @@ Fill the `REVIEW` object like this:
   shows the whole diff file by file.
 
 Leave a part empty when the change has nothing for it, and the template hides
-it.
+it. Keep the key and the empty value of such a part, as the template has them.
 
 For someone else's change, the review ends here. Give the user the artifact's
 link, the verdict and the blockers. Post nothing on the pull request unless the
