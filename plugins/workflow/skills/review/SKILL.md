@@ -177,7 +177,7 @@ Fill the `REVIEW` object like this:
   shows the whole diff file by file.
 
 Leave a part empty when the change has nothing for it, and the template hides
-it.
+it. Keep the key and the empty value of such a part, as the template has them.
 
 For someone else's change, the review ends here. Give the user the artifact's
 link, the verdict and the blockers. Post nothing on the pull request unless the
