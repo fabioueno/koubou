@@ -128,6 +128,12 @@ Build the artifact from this skill's template, `assets/review.html`:
 4. Publish the file with the `Artifact` tool, and give the artifact's link and
    the file's path.
 
+The user reads the whole walkthrough, so the reading target of `kanso:write`
+applies to its prose. The code excerpts, the diagrams and the diff do not count.
+Give each answer in a step one or two sentences. Every changed line still
+belongs to a step, and a step, a gotcha or a check that a reviewer needs always
+stays.
+
 Fill the `REVIEW` object like this:
 
 - `mode` is `own` for your own change and `others` for someone else's.

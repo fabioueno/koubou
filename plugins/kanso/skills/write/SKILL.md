@@ -35,6 +35,8 @@ and its words follow these rules too.
 - Delete sales words such as "seamless" and "robust". Keep one hedge, with the
   strength that the evidence supports.
 - Put the most important fact first. Keep articles. Do not write telegram style.
+- Cut words, never facts. Say each fact once, and leave out how the text came to
+  be. A document that a person reads whole aims for about 5 minutes.
 - Do not use em dashes or semicolons.
 - Name things in code with full words, one word for each concept across the
   codebase, and the project's naming conventions first. Name a function for what
@@ -126,6 +128,25 @@ Example:
 > After: The person clicks the link. The API checks the token. If the token is
 > valid, the API creates a session and redirects the person to the dashboard. If
 > the token has expired, the API shows an error.
+
+### Length
+
+A text is as long as its facts need, and no longer. Cut words, never facts:
+
+- Say each fact once, in the place where the reader needs it.
+- Leave out how the text came to be: the steps you took, the drafts, and what
+  you tried first. Keep a step only when the reader needs it to understand a
+  choice.
+- Point to a source by its path instead of repeating what it says.
+
+A document that a person reads whole aims for about 5 minutes: near 1,000 words
+of prose. A plan, a review, a report, a brief and an explanation page are such
+documents. Code, diffs and diagrams do not count. The 5 minutes are a target,
+not a cap. A decision, a risk, a step or a caveat that the reader needs always
+stays, and a complete document that is longer stays longer.
+
+The target does not apply to a short text, such as a commit message, a comment
+or a terminal reply.
 
 ## Names and comments in code
 

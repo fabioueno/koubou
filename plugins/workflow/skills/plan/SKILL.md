@@ -109,6 +109,10 @@ in this project. Make the plan richer with more concrete items, never with
 longer items. Each item stays one or two short sentences, written with the
 `kanso:write` skill.
 
+The user reads the whole plan before they approve it, so the reading target of
+`kanso:write` applies to it. The diagram does not count. A decision, a named
+default, a risk or a slice that a reader needs always stays.
+
 Build the artifact from this skill's template, `assets/plan.html`:
 
 1. Copy the template to the folder where the project keeps plans. Use a shell
