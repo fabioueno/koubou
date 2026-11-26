@@ -2,6 +2,7 @@ import type { EngineInterface, On, PluginOptions } from "claude-code";
 import { atom, update } from "claude-code";
 
 import type { Status } from "../../types";
+import { gitStateOf } from "../git/state";
 import { fablePercent } from "../status/fable";
 import { gaugeOf } from "../status/limits";
 import { basename, homeOf } from "../text/paths";
@@ -28,25 +29,9 @@ async function usageOf($: EngineInterface, options: PluginOptions): Promise<Usag
 }
 
 async function placeOf($: EngineInterface, cwd: string): Promise<Pick<Status, "project" | "branch" | "worktree">> {
-  const git = async (...args: string[]): Promise<string | undefined> => {
-    const ran = await $.process.run(["git", "-C", cwd, ...args]).catch(() => undefined);
-    return ran?.exitCode === 0 ? ran.stdout.trim() : undefined;
-  };
+  const [root, git] = await Promise.all([$.session.root().catch(() => cwd), gitStateOf($, cwd)]);
 
-  const [branch, gitDir, commonDir, top] = await Promise.all([
-    git("branch", "--show-current"),
-    git("rev-parse", "--absolute-git-dir"),
-    git("rev-parse", "--path-format=absolute", "--git-common-dir"),
-    git("rev-parse", "--show-toplevel"),
-  ]);
-
-  const isWorktree = gitDir !== undefined && commonDir !== undefined && gitDir !== commonDir && top !== undefined;
-
-  return {
-    project: basename(await $.session.root().catch(() => cwd)),
-    branch: branch === undefined ? undefined : branch || "detached",
-    worktree: isWorktree ? basename(top) : undefined,
-  };
+  return { project: basename(root), ...git };
 }
 
 async function refreshStatus($: EngineInterface, usageFiles: Usage | undefined): Promise<void> {
