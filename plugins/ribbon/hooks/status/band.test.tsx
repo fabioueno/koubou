@@ -30,6 +30,7 @@ const MOUNT = {
   viewport: { columns: 160, rows: 48 },
   props: {
     hasSurvey: false,
+    isCollapsed: false,
     isWorking: false,
     maxRows: 4,
     bodyColumns: 120,
