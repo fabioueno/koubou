@@ -29,9 +29,12 @@ async function usageOf($: EngineInterface, options: PluginOptions): Promise<Usag
 }
 
 async function placeOf($: EngineInterface, cwd: string): Promise<Pick<Status, "project" | "branch" | "worktree">> {
-  const [root, git] = await Promise.all([$.session.root().catch(() => cwd), gitStateOf($, cwd)]);
+  const [root, { repository, ...git }] = await Promise.all([
+    $.session.root().catch(() => cwd),
+    gitStateOf($, cwd),
+  ]);
 
-  return { project: basename(root), ...git };
+  return { project: repository ?? basename(root), ...git };
 }
 
 async function refreshStatus($: EngineInterface, usageFiles: Usage | undefined): Promise<void> {

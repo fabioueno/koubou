@@ -41,9 +41,17 @@ async function readText($: EngineInterface, path: string): Promise<string | unde
   return typeof text === "string" ? text : undefined;
 }
 
+// A worktree's common folder is the main checkout's .git, or a bare
+// repository such as app.git.
+function repositoryOf(commonPath: string): string {
+  const name = basename(commonPath);
+  return name === ".git" ? basename(dirname(commonPath)) : name.replace(/\.git$/, "");
+}
+
 export interface GitState {
   branch?: string;
   worktree?: string;
+  repository?: string;
 }
 
 // Reads the files git keeps instead of running git: the band refreshes every
@@ -58,7 +66,11 @@ export async function gitStateOf($: EngineInterface, cwd: string): Promise<GitSt
   }
 
   const commonDir = await readText($, `${gitDir}/commondir`);
-  const isWorktree = commonDir !== undefined && resolvePath(gitDir, commonDir.trim()) !== gitDir;
+  const commonPath = commonDir === undefined ? gitDir : resolvePath(gitDir, commonDir.trim());
 
-  return { branch: branchOf(head), worktree: isWorktree ? basename(entry.top) : undefined };
+  if (commonPath === gitDir) {
+    return { branch: branchOf(head), worktree: undefined };
+  }
+
+  return { branch: branchOf(head), worktree: basename(entry.top), repository: repositoryOf(commonPath) };
 }

@@ -92,6 +92,27 @@ describe("gitStateOf", () => {
     expect(shown).toContain(`${GLYPHS.worktree} tidy`);
   });
 
+  it("names the main repository as the project inside a worktree", NO_LIMITS, async ($, on) => {
+    const shown = await bandIn($, on, "/r/app/.claude/worktrees/tidy", {
+      "/r/app/.claude/worktrees/tidy/.git": "gitdir: /r/app/.git/worktrees/tidy\n",
+      "/r/app/.git/worktrees/tidy/HEAD": "ref: refs/heads/fix/tidy-up\n",
+      "/r/app/.git/worktrees/tidy/commondir": "../..\n",
+    });
+
+    expect(shown).toContain(`${GLYPHS.project} app`);
+    expect(shown).not.toContain(`${GLYPHS.project} tidy`);
+  });
+
+  it("names a bare repository as the project of its worktrees", NO_LIMITS, async ($, on) => {
+    const shown = await bandIn($, on, "/r/trees/tidy", {
+      "/r/trees/tidy/.git": "gitdir: /r/app.git/worktrees/tidy\n",
+      "/r/app.git/worktrees/tidy/HEAD": "ref: refs/heads/main\n",
+      "/r/app.git/worktrees/tidy/commondir": "../..\n",
+    });
+
+    expect(shown).toContain(`${GLYPHS.project} app`);
+  });
+
   it("does not take a submodule for a worktree", NO_LIMITS, async ($, on) => {
     const shown = await bandIn($, on, "/r/app/lib", {
       "/r/app/lib/.git": "gitdir: ../.git/modules/lib\n",
