@@ -2,6 +2,10 @@ import type { On } from "claude-code";
 import type { Engine } from "claude-code/testing";
 import { describe, expect, test as it, mock } from "claude-code/testing";
 
+const CACHE = "/c/cache/statusline-usage.json";
+const STAMP = "/c/cache/statusline-usage.refresh";
+const SCRIPT = "/c/statusline.sh";
+
 // Ages in milliseconds at the moment the 180 s timer first fires.
 function startWithFiles(on: On, ages: Readonly<Record<string, number>>): string[][] {
   const ran: string[][] = [];
@@ -38,6 +42,30 @@ async function runUntilUsageTimer($: Engine, on: On): Promise<void> {
 }
 
 describe("onSessionStart", () => {
+  it("skips the usage script while the cache is fresh", async ($, on) => {
+    const ran = startWithFiles(on, { [CACHE]: 60_000 });
+
+    await runUntilUsageTimer($, on);
+
+    expect(ran).toEqual([]);
+  });
+
+  it("skips the usage script while another session's attempt is recent", async ($, on) => {
+    const ran = startWithFiles(on, { [CACHE]: 900_000, [STAMP]: 20_000 });
+
+    await runUntilUsageTimer($, on);
+
+    expect(ran).toEqual([]);
+  });
+
+  it("runs the usage script once the cache and the last attempt are stale", async ($, on) => {
+    const ran = startWithFiles(on, { [CACHE]: 900_000, [STAMP]: 400_000 });
+
+    await runUntilUsageTimer($, on);
+
+    expect(ran).toEqual([["bash", SCRIPT]]);
+  });
+
   it("never runs git for the band", async ($, on) => {
     const ran = startWithFiles(on, {});
 
