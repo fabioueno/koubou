@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Checks that the plan and review templates render to the end when a part of
-# their data is missing or empty, and that a page that cannot render says so
-# instead of stopping in silence.
+# their data is missing or empty, that a page that cannot render says so instead
+# of stopping in silence, and that a review page names the lens of a finding.
 #
 # Usage: plugins/workflow/tests/page-templates.sh
 
@@ -33,7 +33,14 @@ const samples = {
     context: { title: "Context", paras: ["One paragraph."] },
     problem: { title: "Problem", paras: ["One paragraph."] },
     solution: { title: "Solution", paras: ["One paragraph."], svg: "" },
-    findings: { title: "Findings", sub: "", rows: [["src/tasks.ts:3", "Sort the list.", "suggestion"]] },
+    findings: {
+      title: "Findings",
+      sub: "",
+      rows: [
+        ["src/tasks.ts:3", "Sort the list.", "suggestion"],
+        ["src/tasks.ts:5", "Check the owner.", "fixed", "security"],
+      ],
+    },
     steps: { title: "Steps", sub: "", list: [{ title: "A step", file: "src/tasks.ts", lines: [1, 2], what: "A function." }] },
     commits: { title: "Commits", sub: "", list: [{ subject: "feat: add a list", why: "One idea.", steps: 1, status: "todo" }] },
     checks: { title: "Checks", rows: [["Tests", "4 passed.", "pass"]] },
@@ -79,7 +86,12 @@ function page() {
   return { document: element(), written };
 }
 
-function outcome(data) {
+const requiredTexts = {
+  REVIEW: [["names the lens of a finding", ">security</span>"]],
+  PLAN: [],
+};
+
+function outcome(data, mustShow) {
   const { document, written } = page();
   try {
     if (data === undefined) new Function("document", "window", render)(document, document);
@@ -88,6 +100,7 @@ function outcome(data) {
     return `threw ${error.constructor.name}: ${error.message}`;
   }
   if (written.some((text) => text.includes("This page stopped"))) return "stopped with a message";
+  if (mustShow) return written.some((text) => text.includes(mustShow)) ? "shown" : "not shown";
   return written.some((text) => text.includes(endMarker)) ? "rendered" : "ended early";
 }
 
@@ -101,10 +114,11 @@ for (const part of Object.keys(empty).filter((key) => typeof empty[key] === "obj
   cases.push([`with an empty ${part}`, hollow, "rendered"]);
 }
 cases.push(["with no data object", undefined, "stopped with a message"]);
+for (const [label, text] of requiredTexts[name]) cases.push([label, samples[name], "shown", text]);
 
 let failures = 0;
-for (const [label, data, expected] of cases) {
-  const actual = outcome(data);
+for (const [label, data, expected, mustShow] of cases) {
+  const actual = outcome(data, mustShow);
   const passed = actual === expected;
   if (!passed) failures += 1;
   const mark = passed ? "\x1b[32mpass\x1b[0m" : "\x1b[31mfail\x1b[0m";
