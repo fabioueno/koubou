@@ -34,7 +34,7 @@
     {
       "name": "workflow",
       "source": "./plugins/workflow",
-      "description": "How work moves from an idea to a merged pull request: plan, coordinate, implement, review and open the pull request, each phase a skill of its own."
+      "description": "How work moves from an idea to a merged pull request: plan, coordinate, implement, review, open the pull request and hand off to a new session, each phase a skill of its own."
     }
   ]
 }
