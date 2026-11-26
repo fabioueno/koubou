@@ -8,8 +8,7 @@ import { band } from "../status/band";
 const status = atom({ plugin: "ribbon", key: "status" } as const, null);
 
 /**
- * The band, kept next to the prompt, under whatever the other plugins draw
- * above the prompt, so each one's part shows whatever order the plugins run in.
+ * The band as ribbon's own row above the prompt.
  */
 export function onAbovePrompt(on: On, options: PluginOptions): void {
   on("ui.render", { component: "AbovePrompt" }, async ($, e, next) => {
@@ -18,19 +17,25 @@ export function onAbovePrompt(on: On, options: PluginOptions): void {
       return next(e);
     }
 
-    const E = $.ui.resolve(e);
-    const above = await next(e);
+    return band($.ui.resolve(e), {
+      status: current,
+      width: e.props.bodyColumns,
+      showCost: options.showCost !== false,
+      showRateLimits: options.showRateLimits !== false,
+    });
+  });
+}
 
-    return (
-      <E.Box flexDirection="column">
-        {above}
-        {band(E, {
-          status: current,
-          width: e.props.bodyColumns,
-          showCost: options.showCost !== false,
-          showRateLimits: options.showRateLimits !== false,
-        })}
-      </E.Box>
-    );
+/**
+ * Ribbon's row last, so the band stays next to the prompt under every other
+ * plugin's row, whatever order the plugins run in.
+ */
+export function onAbovePromptList(on: On): void {
+  on("ui.render", { component: "AbovePromptList" }, (_$, e, next) => {
+    const rows = e.props.rows;
+    const others = rows.filter((row) => row.plugin !== "ribbon");
+    const own = rows.filter((row) => row.plugin === "ribbon");
+
+    return next({ ...e, props: { ...e.props, rows: [...others, ...own] } });
   });
 }
